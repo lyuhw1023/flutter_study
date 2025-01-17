@@ -4,10 +4,16 @@ import 'package:test1/common/const/colors.dart';
 class CustomTextFormField extends StatelessWidget {
   final String? hintText;
   final String? errorText;
+  final bool obscureText;
+  final bool autofocus;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextFormField({
     this.hintText,
     this.errorText,
+    this.obscureText = false,
+    this.autofocus = false,
+    required this.onChanged,
     Key? key,
     }) : super(key: key);
 
@@ -22,6 +28,10 @@ class CustomTextFormField extends StatelessWidget {
 
     return TextFormField(
       cursorColor: PRIMARY_COLOR,
+      // 비밀번호 입력할 때
+      obscureText: obscureText,
+      autofocus: autofocus,
+      onChanged: onChanged,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(20),
         hintText: hintText,
@@ -35,6 +45,7 @@ class CustomTextFormField extends StatelessWidget {
         filled: true,
         // 모든 Input 상태의 기본 스타일 세팅
         border: baseBorder,
+        enabledBorder: baseBorder,
         focusedBorder: baseBorder.copyWith(
           borderSide: baseBorder.borderSide.copyWith(
             color: PRIMARY_COLOR,
