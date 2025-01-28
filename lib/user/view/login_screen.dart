@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:test1/common/component/custom_text_form_field.dart';
 import 'package:test1/common/const/colors.dart';
+import 'package:test1/common/const/data.dart';
 import 'package:test1/common/layout/default_layout.dart';
 import 'package:test1/common/view/root_tab.dart';
 
@@ -21,13 +23,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final storage = FlutterSecureStorage();
+
     final dio = Dio();
 
     // localhost
     final emulatorIp = '10.0.2.2:3000';
     final simulatorIp = '127.0.0.1:3000';
 
-    final ip = Platform.isIOS ?simulatorIp : emulatorIp;
+    final ip = Platform.isIOS ? simulatorIp : emulatorIp;
 
     return DefaultLayout(
       child: SingleChildScrollView(
@@ -67,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // ID:PW
                     final rawString = '$username:$password';
 
+                    //지우기
                     print(rawString);
 
                     // 일반 String을 base64로 변환
@@ -81,12 +86,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       )
                     );
+
+                    final refreshToken = resp.data['refreshToken'];
+                    final accessToken = resp.data['accessToken'];
+
+                    await storage.write(key: REFRESH_TOKEN_KEY, value: refreshToken);
+                    await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);
+
                     Navigator.of(context).push(
                       MaterialPageRoute(
                           builder: (_) => RootTab(),
                       ),
                     );
-                    print(resp.data);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PRIMARY_COLOR,
