@@ -25,12 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final dio = Dio();
 
-    // localhost
-    final emulatorIp = '10.0.2.2:3000';
-    final simulatorIp = '127.0.0.1:3000';
-
-    final ip = Platform.isIOS ? simulatorIp : emulatorIp;
-
     return DefaultLayout(
       child: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
@@ -110,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextButton(
                   onPressed: () async {
-                    final refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAY29kZWZhY3RvcnkuYWkiLCJzdWIiOiJmNTViMzJkMi00ZDY4LTRjMWUtYTNjYS1kYTlkN2QwZDkyZTUiLCJ0eXBlIjoicmVmcmVzaCIsImlhdCI6MTczNzQ1Njg1NCwiZXhwIjoxNzM3NTQzMjU0fQ.8BIyVZjXOjtoJCoE2atDn9AckN50a4S1alYSLI9cQmw';
+                    /*final refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAY29kZWZhY3RvcnkuYWkiLCJzdWIiOiJmNTViMzJkMi00ZDY4LTRjMWUtYTNjYS1kYTlkN2QwZDkyZTUiLCJ0eXBlIjoicmVmcmVzaCIsImlhdCI6MTczNzQ1Njg1NCwiZXhwIjoxNzM3NTQzMjU0fQ.8BIyVZjXOjtoJCoE2atDn9AckN50a4S1alYSLI9cQmw';
 
                     final resp = await dio.post('http://$ip/auth/token',
                         options: Options(
@@ -120,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         )
                     );
 
-                    print(resp.data);
+                    print(resp.data);*/
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
