@@ -41,6 +41,8 @@ class RestaurantScreen extends StatelessWidget {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (_, index) {
                     final item = snapshot.data![index];
+                    final pItem2 = RestaurantModel(
+                    );
 
                     // parsed Item - 변환된 아이템
                     final pItem = RestaurantModel(
