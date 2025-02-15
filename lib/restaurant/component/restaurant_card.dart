@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test1/common/const/colors.dart';
+import 'package:test1/restaurant/model/restaurant_model.dart';
 
 class RestaurantCard extends StatelessWidget {
   // 이미지
@@ -35,6 +36,23 @@ class RestaurantCard extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  factory RestaurantCard.fromModel({
+    required RestaurantModel model,
+  }){
+    return RestaurantCard(
+        image: Image.network(
+        model.thumbUrl,
+        fit: BoxFit.cover,
+    ),
+    name: model.name,
+    tags: model.tags,
+    ratingsCount: model.ratingsCount,
+    deliveryTime: model.deliveryTime,
+    deliveryFee: model.deliveryFee,
+    ratings: model.ratings,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,8 +84,8 @@ class RestaurantCard extends StatelessWidget {
             Row(
               children: [
                 _IconText(
-                    icon: Icons.star,
-                    label: ratings.toString(),
+                  icon: Icons.star,
+                  label: ratings.toString(),
                 ),
                 renderDot(),
                 _IconText(
@@ -91,7 +109,8 @@ class RestaurantCard extends StatelessWidget {
       ],
     );
   }
-  renderDot(){
+
+  renderDot() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Text(
